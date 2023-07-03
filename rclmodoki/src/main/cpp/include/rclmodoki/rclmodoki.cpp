@@ -65,16 +65,7 @@ jint subscription_get_publisher_count(JNIEnv *env, jobject thiz, jlong subscript
   return subscription->get_publisher_count();
 }
 
-} // namespace rclmodoki
-
-extern "C" JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
-  using namespace rclmodoki;
-
-  JNIEnv *env;
-  if (vm->GetEnv(reinterpret_cast<void **>(&env), JNI_VERSION_1_6) != JNI_OK) {
-    return JNI_ERR;
-  }
-
+void rclmodoki_init(JNIEnv *env) {
   // Init MessageTypes
   for (auto &message_type : message_types) {
     message_type.second.jni_class = new JNIClass(env, env->FindClass(message_type.first.c_str()));
@@ -111,6 +102,6 @@ extern "C" JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
   };
   env->RegisterNatives(subscription_class, subscription_methods,
                        sizeof(subscription_methods) / sizeof(JNINativeMethod));
-
-  return JNI_VERSION_1_6;
 }
+
+} // namespace rclmodoki
