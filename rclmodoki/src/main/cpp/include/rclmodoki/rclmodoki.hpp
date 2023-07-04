@@ -27,9 +27,7 @@ public:
 
 using MessageTypes = std::unordered_map<std::string, MessageType>;
 
-extern MessageTypes message_types;
-
-void rclmodoki_init(JNIEnv *env);
+void rclmodoki_init(JNIEnv *env, const MessageTypes &types);
 
 inline std::string from_jstring(JNIEnv *env, jstring s) {
   const char *s_ = env->GetStringUTFChars(s, nullptr);

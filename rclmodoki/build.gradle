@@ -65,7 +65,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'jp.eyrin'
                 artifactId = 'rclmodoki'
-                version = '0.0.2'
+                version = '0.0.3'
             }
         }
     }

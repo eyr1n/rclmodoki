@@ -7,6 +7,8 @@
 
 namespace rclmodoki {
 
+static MessageTypes message_types;
+
 // Node
 jlong node_create_node(JNIEnv *env, jobject thiz, jint domain_id) {
   return reinterpret_cast<jlong>(new Node(domain_id));
@@ -65,8 +67,9 @@ jint subscription_get_publisher_count(JNIEnv *env, jobject thiz, jlong subscript
   return subscription->get_publisher_count();
 }
 
-void rclmodoki_init(JNIEnv *env) {
+void rclmodoki_init(JNIEnv *env, const MessageTypes &types) {
   // Init MessageTypes
+  message_types = types;
   for (auto &message_type : message_types) {
     message_type.second.jni_class = new JNIClass(env, env->FindClass(message_type.first.c_str()));
   }
