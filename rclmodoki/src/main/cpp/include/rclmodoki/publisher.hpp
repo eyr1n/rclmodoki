@@ -10,6 +10,7 @@
 #include <fastdds/dds/topic/TypeSupport.hpp>
 
 #include "eprosima.hpp"
+#include "message.hpp"
 #include "rclmodoki.hpp"
 
 namespace rclmodoki {
@@ -46,7 +47,7 @@ public:
   }
 
   void publish(JNIEnv *env, jobject message) const {
-    auto msg = message_type_.kt_to_cpp(env, message_type_.jni_class, message);
+    auto msg = message_type_.kt_to_cpp(MessageKt{env, message_type_.jni_class, message});
     writer_->write(msg);
     message_type_.type_support.delete_data(msg);
   }

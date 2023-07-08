@@ -32,7 +32,7 @@ public:
 
   void invoke(JNIEnv *env) {
     env->CallVoidMethod(callback_gref_, callback_mid_,
-                        message_type_.cpp_to_kt(env, message_type_.jni_class, message_mid_, message_));
+                        message_type_.cpp_to_kt(MessageCpp{env, message_type_.jni_class, message_mid_, message_}));
   }
 
 private:
